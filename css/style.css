@@ -169,6 +169,14 @@ img { max-width: 100%; display: block; }
   overflow: hidden;
 }
 
+.avatar-img{
+  width:140px;
+  height:140px;
+  border-radius:50%;
+  object-fit:cover;
+  border:2px solid var(--red);
+}
+
 .section-header { text-align: center; margin-bottom: 60px; }
 .section-tag {
   font-family: var(--font-mono);
