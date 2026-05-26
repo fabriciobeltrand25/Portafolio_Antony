@@ -1,648 +1,579 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fabricio Antonio | Portfolio Dev</title>
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/style.css" />
-    <!-- FUENTES -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;700&display=swap"
-        rel="stylesheet" />
-    <!-- ICONOS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fabricio Antonio | Portfolio Dev</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;700&display=swap" rel="stylesheet" />
+  <!-- CSS propio -->
+  <link rel="stylesheet" href="css/style.css" />
 </head>
+<body>
 
-<body><!-- =========================
-       CURSOR
-  ========================== -->
-    <div class="cursor-dot"></div>
-    <div class="cursor-ring"></div>
+  <!-- SCROLL PROGRESS -->
+  <div class="scroll-progress" id="scrollProgress"></div>
 
-    <!-- =========================
+  <!-- CURSOR -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- ========================
        NAVBAR
-  ========================== -->
-    <nav id="navbar">
+  ========================= -->
+  <nav class="navbar navbar-expand-lg fixed-top" id="navbar">
+    <div class="container-xl px-4">
 
-        <div class="nav-logo">
-            <span class="logo-bracket">&lt;</span>
-            FABRICIO
-            <span class="logo-accent">/</span>
-            <span class="logo-bracket">&gt;</span>
-        </div>
+      <a class="nav-logo-text" href="#home">
+        <span class="logo-bracket">&lt;</span>FABRICIO<span class="logo-slash">/</span><span class="logo-bracket">&gt;</span>
+      </a>
 
-        <ul class="nav-links">
-            <li><a href="#home" class="nav-link active">Inicio</a></li>
-            <li><a href="#conocimiento" class="nav-link">Conocimiento</a></li>
-            <li><a href="#certificados" class="nav-link">Certificados</a></li>
-            <li><a href="#proyectos" class="nav-link">Proyectos</a></li>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav mx-auto gap-1">
+          <li class="nav-item"><a href="#home"          class="nav-link active">Inicio</a></li>
+          <li class="nav-item"><a href="#skills"        class="nav-link">Conocimiento</a></li>
+          <li class="nav-item"><a href="#certs"         class="nav-link">Certificados</a></li>
+          <li class="nav-item"><a href="#projects"      class="nav-link">Proyectos</a></li>
+          <li class="nav-item"><a href="#contact"       class="nav-link">Contacto</a></li>
         </ul>
-
-        <div class="nav-status">
-            <span class="status-dot"></span>
-            <span>Open to Work</span>
+        <div class="status-badge ms-auto mt-3 mt-lg-0">
+          <span class="status-dot"></span>
+          <span>Open to Work</span>
         </div>
-
-        <button class="nav-toggle" id="navToggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-
-    </nav>
-
-    <!-- =========================
-       MOBILE MENU
-  ========================== -->
-    <div class="mobile-menu" id="mobileMenu">
-
-        <ul>
-            <li><a href="#home" class="mobile-link">Inicio</a></li>
-            <li><a href="#conocimiento" class="mobile-link">Conocimiento</a></li>
-            <li><a href="#certificados" class="mobile-link">Certificados</a></li>
-            <li><a href="#proyectos" class="mobile-link">Proyectos</a></li>
-        </ul>
+      </div>
 
     </div>
+  </nav>
 
-    <!-- =========================
-       HERO SECTION
-  ========================== -->
-    <section id="home" class="section hero-section">
+  <!-- ========================
+       HERO
+  ========================= -->
+  <section id="home">
+    <div class="hero-grid"></div>
+    <div class="glow-tl"></div>
+    <div class="glow-br"></div>
 
-        <div class="hero-bg-grid"></div>
+    <div class="container-xl px-4" style="position:relative;z-index:1">
+      <div class="row align-items-center g-4">
 
-        <div class="hero-bg-glow glow-red"></div>
-        <div class="hero-bg-glow glow-blue"></div>
-
-        <div class="hero-content">
-
-            <!-- LEFT -->
-            <div class="bento-card bento-bio reveal">
-
-                <div class="bento-tag">// profile.exe</div>
-
-                <h1 class="hero-name">
-
-                    <span class="name-line">
-                        Hola, soy
-                    </span>
-
-                    <span class="name-main">
-                        Fabricio
-                        <span class="accent-red">Antonio</span>
-                    </span>
-
-                </h1>
-
-                <div class="hero-roles">
-                    <span class="role-badge">Web Developer</span>
-                    <span class="role-badge">Backend Developer</span>
-                    <span class="role-badge">Roblox Developer</span>
-                </div>
-
-                <p class="hero-bio">
-                    Estudiante de Ingeniería en Sistemas en la UTH.<br><br>
-
-                    Apasionado por el desarrollo web, programación backend,
-                    bases de datos y creación de experiencias en Roblox Studio.
-                    Siempre aprendiendo nuevas tecnologías y mejorando mis habilidades.
-                </p>
-
-                <div class="hero-cta">
-
-                    <a href="#proyectos" class="btn-primary">
-                        Ver Proyectos
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-
-                    <a href="/img/Cer1.png" target="_blank" class="btn-ghost">
-                        Certificados
-                    </a>
-
-                </div>
-
+        <!-- IZQUIERDA -->
+        <div class="col-lg-7">
+          <div class="hero-card reveal">
+            <div class="bento-tag"></div>
+            <h1>
+              <span class="hero-name-small">Hola, soy</span>
+              <span class="hero-name-main">Fabricio <span class="name-accent">Antonio</span></span>
+            </h1>
+            <div class="role-badges mb-3">
+              <span class="role-badge">Web Developer</span>
+              <span class="role-badge">Backend Developer</span>
+              <span class="role-badge">Roblox Developer</span>
             </div>
-
-            <!-- RIGHT -->
-            <div class="bento-right-col">
-
-                <!-- FOTO -->
-                <div class="bento-card bento-avatar reveal">
-
-                    <div class="avatar-frame">
-
-                        <!-- PON TU FOTO -->
-                        <img src="img/ejemplo1.png" alt="Fabricio" class="avatar-img">
-
-                        <div class="avatar-glow"></div>
-
-                    </div>
-
-                </div>
-
-                <!-- STATS -->
-                <div class="bento-card bento-stat reveal">
-
-                    <div class="stat-icon">
-                        <i class="fa-solid fa-code"></i>
-                    </div>
-
-                    <div class="stat-info">
-                        <span class="stat-num">10+</span>
-                        <span class="stat-label">Tecnologías</span>
-                    </div>
-
-                </div>
-
-                <div class="bento-card bento-stat bento-stat-red reveal">
-
-                    <div class="stat-icon">
-                        <i class="fa-solid fa-gamepad"></i>
-                    </div>
-
-                    <div class="stat-info">
-                        <span class="stat-num">∞</span>
-                        <span class="stat-label">Gaming</span>
-                    </div>
-
-                </div>
-
-                <div class="bento-card bento-stat reveal">
-
-                    <div class="stat-icon">
-                        <i class="fa-solid fa-certificate"></i>
-                    </div>
-
-                    <div class="stat-info">
-                        <span class="stat-num">3+</span>
-                        <span class="stat-label">Certificados</span>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="scroll-hint">
-            <span>Scroll</span>
-            <div class="scroll-line"></div>
-        </div>
-
-    </section>
-
-    <!-- =========================
-       SKILLS
-  ========================== -->
-    <section id="conocimiento" class="section skills-section">
-
-        <div class="section-header reveal">
-
-            <span class="section-tag">// skills.json</span>
-
-            <h2 class="section-title">
-                Conocimiento
-                <span class="accent-red">&</span>
-                Herramientas
-            </h2>
-
-            <p class="section-sub">
-                Tecnologías y herramientas que manejo actualmente
+            <p class="hero-bio">
+              Estudiante de Ingeniería en Sistemas en la UTH.<br>
+              Apasionado por el desarrollo web, programación backend,
+              bases de datos y creación de experiencias en Roblox Studio.
+              Siempre aprendiendo nuevas tecnologías y mejorando mis habilidades.
             </p>
-
+            <div class="d-flex flex-wrap gap-3">
+              <a href="#projects" class="btn-accent">Ver Proyectos <i class="fa-solid fa-arrow-right"></i></a>
+              <a href="#contact"  class="btn-ghost">Contacto <i class="fa-solid fa-paper-plane"></i></a>
+            </div>
+          </div>
         </div>
 
-        <div class="bento-grid skills-grid">
+        <!-- DERECHA -->
+        <div class="col-lg-5">
+          <div class="row g-3">
 
-            <!-- FRONTEND -->
-            <div class="bento-card skill-group reveal">
-
-                <div class="skill-group-header">
-                    <i class="fa-solid fa-palette"></i>
-                    <h3>Frontend</h3>
+            <!-- AVATAR HEXAGONAL -->
+            <div class="col-12 reveal delay-1">
+              <div class="bento-card text-center" style="padding:30px 20px">
+                <div class="bento-tag"></div>
+                <div class="hex-wrapper">
+                  <div class="hex-container">
+                    <div class="hex-border"></div>
+                    <div class="hex-inner">
+                      <!--
+                        PON TU FOTO:-->
+                        <img src="img/ejemplo1.png" alt="Fabricio" class="hex-img">
+                    
+                    </div>
+                    <div class="hex-glow"></div>
+                  </div>
                 </div>
-
-                <div class="skill-bars">
-
-                    <div class="skill-item">
-                        <div class="skill-info">
-                            <span>HTML5</span>
-                            <span class="skill-pct">90%</span>
-                        </div>
-
-                        <div class="skill-bar">
-                            <div class="skill-fill" data-width="90"></div>
-                        </div>
-                    </div>
-
-                    <div class="skill-item">
-                        <div class="skill-info">
-                            <span>CSS3</span>
-                            <span class="skill-pct">85%</span>
-                        </div>
-
-                        <div class="skill-bar">
-                            <div class="skill-fill" data-width="85"></div>
-                        </div>
-                    </div>
-
-                    <div class="skill-item">
-                        <div class="skill-info">
-                            <span>JavaScript</span>
-                            <span class="skill-pct">75%</span>
-                        </div>
-
-                        <div class="skill-bar">
-                            <div class="skill-fill" data-width="75"></div>
-                        </div>
-                    </div>
-
-                </div>
-
+              </div>
             </div>
 
-            <!-- BACKEND -->
-            <div class="bento-card skill-group reveal">
-
-                <div class="skill-group-header">
-                    <i class="fa-solid fa-server"></i>
-                    <h3>Backend</h3>
-                </div>
-
-                <div class="skill-bars">
-
-                    <div class="skill-item">
-                        <div class="skill-info">
-                            <span>PHP</span>
-                            <span class="skill-pct">80%</span>
-                        </div>
-
-                        <div class="skill-bar">
-                            <div class="skill-fill" data-width="80"></div>
-                        </div>
-                    </div>
-
-                    <div class="skill-item">
-                        <div class="skill-info">
-                            <span>Java</span>
-                            <span class="skill-pct">75%</span>
-                        </div>
-
-                        <div class="skill-bar">
-                            <div class="skill-fill" data-width="75"></div>
-                        </div>
-                    </div>
-
-                    <div class="skill-item">
-                        <div class="skill-info">
-                            <span>MySQL</span>
-                            <span class="skill-pct">85%</span>
-                        </div>
-
-                        <div class="skill-bar">
-                            <div class="skill-fill" data-width="85"></div>
-                        </div>
-                    </div>
-
-                </div>
-
+            <!-- STATS -->
+            <div class="col-4 reveal delay-2">
+              <div class="stat-card">
+                <span class="stat-icon"><i class="fa-solid fa-code"></i></span>
+                <span class="stat-num" data-target="10" data-suffix="+">10+</span>
+                <span class="stat-label">Tecnologías</span>
+              </div>
+            </div>
+            <div class="col-4 reveal delay-3">
+              <div class="stat-card">
+                <span class="stat-icon blue"><i class="fa-solid fa-gamepad"></i></span>
+                <span class="stat-num">∞</span>
+                <span class="stat-label">Gaming</span>
+              </div>
+            </div>
+            <div class="col-4 reveal delay-4">
+              <div class="stat-card">
+                <span class="stat-icon"><i class="fa-solid fa-certificate"></i></span>
+                <span class="stat-num" data-target="3" data-suffix="+">3+</span>
+                <span class="stat-label">Certs</span>
+              </div>
             </div>
 
-            <!-- HERRAMIENTAS -->
-            <div class="bento-card skill-tools reveal">
-
-                <div class="skill-group-header">
-                    <i class="fa-solid fa-wrench"></i>
-                    <h3>Herramientas</h3>
-                </div>
-
-                <div class="tools-icons">
-
-                    <div class="tool-icon">
-                        <i class="fa-brands fa-html5"></i>
-                        <span>HTML5</span>
-                    </div>
-
-                    <div class="tool-icon">
-                        <i class="fa-brands fa-css3-alt"></i>
-                        <span>CSS3</span>
-                    </div>
-
-                    <div class="tool-icon">
-                        <i class="fa-brands fa-js"></i>
-                        <span>JS</span>
-                    </div>
-
-                    <div class="tool-icon">
-                        <i class="fa-brands fa-php"></i>
-                        <span>PHP</span>
-                    </div>
-
-                    <div class="tool-icon">
-                        <i class="fa-brands fa-java"></i>
-                        <span>JAVA</span>
-                    </div>
-
-                    <div class="tool-icon">
-                        <i class="fa-brands fa-github"></i>
-                        <span>GitHub</span>
-                    </div>
-
-                    <div class="tool-icon">
-                        <i class="fa-solid fa-database"></i>
-                        <span>MySQL</span>
-                    </div>
-
-                    <div class="tool-icon">
-                        <i class="fa-solid fa-gamepad"></i>
-                        <span>Roblox</span>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!-- ROBLOX -->
-            <div class="bento-card skill-roblox reveal">
-
-                <div class="roblox-glow"></div>
-
-                <div class="skill-group-header">
-                    <i class="fa-solid fa-gamepad"></i>
-                    <h3>Roblox Dev</h3>
-                </div>
-
-                <p>
-                    Desarrollo de experiencias en Roblox Studio,
-                    scripting en Lua y administración de servidores.
-                </p>
-
-                <div class="roblox-tags">
-                    <span>Lua</span>
-                    <span>Roblox Studio</span>
-                    <span>Game Design</span>
-                </div>
-
-            </div>
-
+          </div>
         </div>
 
-    </section>
+      </div>
+    </div>
 
-    <!-- =========================
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ========================
+       SKILLS
+  ========================= -->
+  <section id="skills" class="section skills-section">
+    <div class="container-xl px-4">
+
+      <div class="text-center mb-5 reveal">
+        <span class="section-tag">// skills.json</span>
+        <h2 class="section-title">Conocimiento <span class="name-accent">&</span> Herramientas</h2>
+        <p class="section-sub">Tecnologías y herramientas que manejo actualmente</p>
+      </div>
+
+      <div class="row g-4">
+
+        <!-- FRONTEND -->
+        <div class="col-md-6 reveal delay-1">
+          <div class="bento-card h-100">
+            <div class="d-flex align-items-center gap-2 mb-4">
+              <i class="fa-solid fa-palette skill-group-icon"></i>
+              <span class="skill-group-title">Frontend</span>
+            </div>
+            <div class="d-flex flex-column gap-3">
+              <div>
+                <div class="skill-info"><span>HTML5</span><span class="skill-pct">90%</span></div>
+                <div class="skill-bar-track"><div class="skill-bar-fill" data-width="90"></div></div>
+              </div>
+              <div>
+                <div class="skill-info"><span>CSS3</span><span class="skill-pct">85%</span></div>
+                <div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div>
+              </div>
+              <div>
+                <div class="skill-info"><span>JavaScript</span><span class="skill-pct">75%</span></div>
+                <div class="skill-bar-track"><div class="skill-bar-fill" data-width="75"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BACKEND -->
+        <div class="col-md-6 reveal delay-2">
+          <div class="bento-card h-100">
+            <div class="d-flex align-items-center gap-2 mb-4">
+              <i class="fa-solid fa-server skill-group-icon"></i>
+              <span class="skill-group-title">Backend</span>
+            </div>
+            <div class="d-flex flex-column gap-3">
+              <div>
+                <div class="skill-info"><span>PHP</span><span class="skill-pct">80%</span></div>
+                <div class="skill-bar-track"><div class="skill-bar-fill" data-width="80"></div></div>
+              </div>
+              <div>
+                <div class="skill-info"><span>Java</span><span class="skill-pct">75%</span></div>
+                <div class="skill-bar-track"><div class="skill-bar-fill" data-width="75"></div></div>
+              </div>
+              <div>
+                <div class="skill-info"><span>MySQL</span><span class="skill-pct">85%</span></div>
+                <div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- HERRAMIENTAS -->
+        <div class="col-12 reveal delay-3">
+          <div class="bento-card">
+            <div class="d-flex align-items-center gap-2 mb-4">
+              <i class="fa-solid fa-wrench skill-group-icon"></i>
+              <span class="skill-group-title">Herramientas</span>
+            </div>
+            <div class="row row-cols-4 row-cols-sm-8 g-2">
+              <div class="col"><div class="tool-icon-box"><i class="fa-brands fa-html5"></i><span>HTML5</span></div></div>
+              <div class="col"><div class="tool-icon-box"><i class="fa-brands fa-css3-alt"></i><span>CSS3</span></div></div>
+              <div class="col"><div class="tool-icon-box"><i class="fa-brands fa-js"></i><span>JS</span></div></div>
+              <div class="col"><div class="tool-icon-box"><i class="fa-brands fa-php"></i><span>PHP</span></div></div>
+              <div class="col"><div class="tool-icon-box"><i class="fa-brands fa-java"></i><span>Java</span></div></div>
+              <div class="col"><div class="tool-icon-box"><i class="fa-brands fa-github"></i><span>GitHub</span></div></div>
+              <div class="col"><div class="tool-icon-box"><i class="fa-solid fa-database"></i><span>MySQL</span></div></div>
+              <div class="col"><div class="tool-icon-box"><i class="fa-solid fa-gamepad"></i><span>Roblox</span></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ROBLOX -->
+        <div class="col-12 reveal delay-4">
+          <div class="bento-card roblox-card">
+            <div class="roblox-glow-orb"></div>
+            <div class="d-flex align-items-center gap-2 mb-3">
+              <i class="fa-solid fa-gamepad skill-group-icon"></i>
+              <span class="skill-group-title">Roblox Dev</span>
+            </div>
+            <p class="mb-3" style="color:var(--text-secondary);font-size:.95rem;line-height:1.65">
+              Desarrollo de experiencias en Roblox Studio, scripting en Lua y administración de servidores de juego.
+            </p>
+            <div class="d-flex flex-wrap gap-2">
+              <span class="tech-tag">Lua</span>
+              <span class="tech-tag">Roblox Studio</span>
+              <span class="tech-tag">Game Design</span>
+              <span class="tech-tag">Server Admin</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================
        CERTIFICADOS
-  ========================== -->
-    <section id="certificados" class="section certs-section">
+  ========================= -->
+  <section id="certs" class="section certs-section">
+    <div class="container-xl px-4">
 
-        <div class="section-header reveal">
+      <div class="text-center mb-5 reveal">
+        <span class="section-tag">[]</span>
+        <h2 class="section-title">Mis <span class="name-accent">Certificados</span></h2>
+      </div>
 
-            <span class="section-tag">// certificates[]</span>
+      <div class="certs-timeline mx-auto">
 
-            <h2 class="section-title">
-                Mis
-                <span class="accent-red">Certificados</span>
-            </h2>
+        <div class="timeline-line d-none d-md-block"></div>
 
+        <!-- CERT 1 -->
+        <div class="row align-items-center g-4 py-4 position-relative">
+          <div class="timeline-dot d-none d-md-block"></div>
+          <div class="col-md-6 reveal-left">
+            <div class="cert-img-wrap">
+                <!--
+                PON TU CERTIFICADO: -->
+                <img src="img/Cer1.png" alt="Certificado Web">
+             
+              <div class="cert-img-placeholder-box">
+                <i class="fa-solid fa-award"></i>
+                <span>Certificado Web</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 reveal-right">
+            <div class="cert-num">01</div>
+            <h3 class="cert-title">Desarrollo Web</h3>
+            <p class="cert-meta"><i class="fa-solid fa-building-columns"></i>Universidad Tecnológica de Honduras</p>
+            <p class="cert-meta"><i class="fa-solid fa-calendar"></i>2025</p>
+            <p class="cert-desc">Fundamentos de HTML5, CSS3 y JavaScript aplicados al desarrollo web moderno.</p>
+            <div class="d-flex flex-wrap gap-2">
+              <span class="tech-tag">HTML5</span>
+              <span class="tech-tag">CSS3</span>
+              <span class="tech-tag">JavaScript</span>
+            </div>
+          </div>
         </div>
 
-        <div class="certs-timeline">
-
-            <!-- CERT 1 -->
-            <div class="cert-item reveal-cert">
-
-                <div class="cert-img-wrap">
-
-                    <img src="img/Cer1.png" alt="Certificado Web" class="cert-img-placeholder">
-
-                    <div class="cert-img-glow"></div>
-
-                </div>
-
-                <div class="cert-info">
-
-                    <div class="cert-num">01</div>
-
-                    <h3 class="cert-title">
-                        Desarrollo Web
-                    </h3>
-
-                    <p class="cert-issuer">
-                        <i class="fa-solid fa-building-columns"></i>
-                        Universidad Tecnológica de Honduras
-                    </p>
-
-                    <p class="cert-date">
-                        <i class="fa-solid fa-calendar"></i>
-                        2025
-                    </p>
-
-                    <p class="cert-desc">
-                        Fundamentos de HTML5, CSS3 y JavaScript
-                        aplicados al desarrollo web moderno.
-                    </p>
-
-                </div>
-
+        <!-- CERT 2 -->
+        <div class="row align-items-center g-4 py-4 position-relative">
+          <div class="timeline-dot d-none d-md-block"></div>
+          <div class="col-md-6 order-md-2 reveal-right">
+            <div class="cert-img-wrap">
+              <!--
+                PON TU CERTIFICADO:
+                <img src="img/Cer2.png" alt="Certificado Java">
+              -->
+              <div class="cert-img-placeholder-box">
+                <i class="fa-brands fa-java" style="color:var(--accent)"></i>
+                <span>Certificado Java</span>
+              </div>
             </div>
-
-            <!-- CERT 2 -->
-            <div class="cert-item reveal-cert">
-
-                <div class="cert-img-wrap">
-
-                    <img src="img/Cer1.png" alt="Certificado Java" class="cert-img-placeholder">
-
-                    <div class="cert-img-glow"></div>
-
-                </div>
-
-                <div class="cert-info">
-
-                    <div class="cert-num">02</div>
-
-                    <h3 class="cert-title">
-                        Programación Java
-                    </h3>
-
-                    <p class="cert-issuer">
-                        <i class="fa-solid fa-building-columns"></i>
-                        UTH
-                    </p>
-
-                    <p class="cert-date">
-                        <i class="fa-solid fa-calendar"></i>
-                        2025
-                    </p>
-
-                    <p class="cert-desc">
-                        Programación orientada a objetos,
-                        estructuras de datos y aplicaciones Java.
-                    </p>
-
-                </div>
-
+          </div>
+          <div class="col-md-6 order-md-1 reveal-left">
+            <div class="cert-num">02</div>
+            <h3 class="cert-title">Programación Java</h3>
+            <p class="cert-meta"><i class="fa-solid fa-building-columns"></i>UTH</p>
+            <p class="cert-meta"><i class="fa-solid fa-calendar"></i>2025</p>
+            <p class="cert-desc">Programación orientada a objetos, estructuras de datos y aplicaciones Java.</p>
+            <div class="d-flex flex-wrap gap-2">
+              <span class="tech-tag">Java</span>
+              <span class="tech-tag">POO</span>
+              <span class="tech-tag">Estructuras</span>
             </div>
-
+          </div>
         </div>
 
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- =========================
+  <!-- ========================
        PROYECTOS
-  ========================== -->
-    <section id="proyectos" class="section projects-section">
+  ========================= -->
+  <section id="projects" class="section projects-section">
+    <div class="container-xl px-4">
 
-        <div class="section-header reveal">
+      <div class="text-center mb-5 reveal">
+        <span class="section-tag">// projects.exe</span>
+        <h2 class="section-title">Mis <span class="name-accent">Proyectos</span></h2>
+      </div>
 
-            <span class="section-tag">// projects.exe</span>
+      <div class="row g-4">
 
-            <h2 class="section-title">
-                Mis
-                <span class="accent-red">Proyectos</span>
-            </h2>
-
+        <!-- PROYECTO DESTACADO -->
+        <div class="col-lg-5 reveal delay-1">
+          <div class="bento-card h-100">
+            <div class="project-badge">Featured</div>
+            <div class="project-icon"><i class="fa-solid fa-globe"></i></div>
+            <h3 class="project-title">Portfolio Personal</h3>
+            <p class="project-desc">Sitio web personal creado con HTML, CSS y JavaScript moderno con animaciones premium y diseño bento grid.</p>
+            <div class="d-flex flex-wrap gap-2 mb-4">
+              <span class="stack-tag">HTML</span>
+              <span class="stack-tag">CSS</span>
+              <span class="stack-tag">JavaScript</span>
+            </div>
+            <a href="#" class="proj-link"><i class="fa-brands fa-github"></i>Código</a>
+          </div>
         </div>
 
-        <div class="bento-grid projects-grid">
-
-            <!-- PROYECTO 1 -->
-            <div class="bento-card project-card project-featured reveal">
-
-                <div class="project-badge">
-                    Featured
-                </div>
-
-                <div class="project-icon">
-                    <i class="fa-solid fa-globe"></i>
-                </div>
-
-                <h3>Portfolio Personal</h3>
-
-                <p>
-                    Sitio web personal creado con HTML,
-                    CSS y JavaScript moderno.
-                </p>
-
-                <div class="project-stack">
-                    <span>HTML</span>
-                    <span>CSS</span>
-                    <span>JavaScript</span>
-                </div>
-
-                <div class="project-links">
-
-                    <a href="#" class="proj-btn">
-                        <i class="fa-brands fa-github"></i>
-                        Código
-                    </a>
-
-                </div>
-
-            </div>
+        <div class="col-lg-7">
+          <div class="row g-4">
 
             <!-- PROYECTO 2 -->
-            <div class="bento-card project-card reveal">
-
-                <div class="project-icon">
-                    <i class="fa-brands fa-php"></i>
+            <div class="col-12 reveal delay-2">
+              <div class="bento-card">
+                <div class="project-icon"><i class="fa-brands fa-php"></i></div>
+                <h3 class="project-title">Sistema PHP</h3>
+                <p class="project-desc">Sistema web con login, panel administrativo y base de datos MySQL.</p>
+                <div class="d-flex flex-wrap gap-2">
+                  <span class="stack-tag">PHP</span>
+                  <span class="stack-tag">MySQL</span>
+                  <span class="stack-tag">CRUD</span>
                 </div>
-
-                <h3>Sistema PHP</h3>
-
-                <p>
-                    Sistema web con login,
-                    panel administrativo y base de datos MySQL.
-                </p>
-
-                <div class="project-stack">
-                    <span>PHP</span>
-                    <span>MySQL</span>
-                    <span>CRUD</span>
-                </div>
-
+              </div>
             </div>
 
             <!-- PROYECTO 3 -->
-            <div class="bento-card project-card project-roblox reveal">
-
-                <div class="roblox-glow-sm"></div>
-
-                <div class="project-icon">
-                    <i class="fa-solid fa-gamepad"></i>
+            <div class="col-12 reveal delay-3">
+              <div class="bento-card roblox-card">
+                <div class="roblox-glow-orb"></div>
+                <div class="project-icon"><i class="fa-solid fa-gamepad"></i></div>
+                <h3 class="project-title">Servidor Roblox</h3>
+                <p class="project-desc">Desarrollo y administración de experiencias personalizadas en Roblox.</p>
+                <div class="d-flex flex-wrap gap-2">
+                  <span class="stack-tag">Lua</span>
+                  <span class="stack-tag">Roblox Studio</span>
                 </div>
-
-                <h3>Servidor Roblox</h3>
-
-                <p>
-                    Desarrollo y administración de
-                    experiencias personalizadas en Roblox.
-                </p>
-
-                <div class="project-stack">
-                    <span>Lua</span>
-                    <span>Roblox Studio</span>
-                </div>
-
+              </div>
             </div>
 
+          </div>
         </div>
 
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- =========================
+  <!-- ========================
+       CONTACTO
+  ========================= -->
+  <section id="contact" class="section contact-section">
+    <div class="contact-glow-left"></div>
+    <div class="contact-glow-right"></div>
+
+    <div class="container-xl px-4" style="position:relative;z-index:1">
+
+      <div class="text-center mb-5 reveal">
+        <span class="section-tag">// contact.send()</span>
+        <h2 class="section-title">Hablemos <span class="name-accent">Juntos</span></h2>
+        <p class="section-sub">¿Tienes un proyecto en mente? Escríbeme y lo hacemos realidad.</p>
+      </div>
+
+      <div class="row g-4 align-items-start">
+
+        <!-- INFO CARDS -->
+        <div class="col-lg-5">
+          <div class="d-flex flex-column gap-3">
+
+            <div class="bento-card contact-info-card reveal delay-1">
+              <div class="d-flex align-items-center gap-3">
+                <div class="contact-icon-wrap">
+                  <i class="fa-solid fa-envelope"></i>
+                </div>
+                <div>
+                  <p class="contact-label">Email</p>
+                  <!-- CAMBIA TU EMAIL -->
+                  <a href="mailto:fabricio@email.com" class="contact-value">fabricio@email.com</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="bento-card contact-info-card reveal delay-2">
+              <div class="d-flex align-items-center gap-3">
+                <div class="contact-icon-wrap">
+                  <i class="fa-brands fa-github"></i>
+                </div>
+                <div>
+                  <p class="contact-label">GitHub</p>
+                  <!-- CAMBIA TU USUARIO -->
+                  <a href="https://github.com/tu-usuario" target="_blank" class="contact-value">github.com/tu-usuario</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="bento-card contact-info-card reveal delay-3">
+              <div class="d-flex align-items-center gap-3">
+                <div class="contact-icon-wrap">
+                  <i class="fa-brands fa-instagram"></i>
+                </div>
+                <div>
+                  <p class="contact-label">Instagram</p>
+                  <!-- CAMBIA TU USUARIO -->
+                  <a href="https://instagram.com/tu-usuario" target="_blank" class="contact-value">@tu-usuario</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="bento-card contact-info-card reveal delay-4">
+              <div class="d-flex align-items-center gap-3">
+                <div class="contact-icon-wrap">
+                  <i class="fa-brands fa-discord"></i>
+                </div>
+                <div>
+                  <p class="contact-label">Discord</p>
+                  <!-- CAMBIA TU TAG -->
+                  <span class="contact-value">fabricio#0000</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- FORMULARIO -->
+        <div class="col-lg-7 reveal delay-2">
+          <div class="bento-card contact-form-card">
+            <div class="bento-tag">// send_message()</div>
+
+            <form id="contactForm" novalidate>
+
+              <div class="row g-3 mb-3">
+                <div class="col-sm-6">
+                  <label class="form-label-custom" for="inputNombre">Nombre</label>
+                  <div class="input-wrap">
+                    <i class="fa-solid fa-user input-icon"></i>
+                    <input type="text" id="inputNombre" class="form-input-custom" placeholder="Tu nombre" required />
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <label class="form-label-custom" for="inputEmail">Email</label>
+                  <div class="input-wrap">
+                    <i class="fa-solid fa-envelope input-icon"></i>
+                    <input type="email" id="inputEmail" class="form-input-custom" placeholder="tu@email.com" required />
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label-custom" for="inputAsunto">Asunto</label>
+                <div class="input-wrap">
+                  <i class="fa-solid fa-tag input-icon"></i>
+                  <input type="text" id="inputAsunto" class="form-input-custom" placeholder="¿De qué se trata?" required />
+                </div>
+              </div>
+
+              <div class="mb-4">
+                <label class="form-label-custom" for="inputMensaje">Mensaje</label>
+                <div class="input-wrap textarea-wrap">
+                  <i class="fa-solid fa-message input-icon"></i>
+                  <textarea id="inputMensaje" class="form-input-custom" rows="5" placeholder="Cuéntame sobre tu proyecto..." required></textarea>
+                </div>
+              </div>
+
+              <button type="submit" class="btn-accent w-100" id="sendBtn">
+                <span id="btnText">Enviar Mensaje <i class="fa-solid fa-paper-plane"></i></span>
+                <span id="btnLoading" style="display:none">
+                  <span class="spinner-border spinner-border-sm me-2"></span>Enviando...
+                </span>
+              </button>
+
+              <!-- FEEDBACK -->
+              <div id="formFeedback" class="form-feedback mt-3" style="display:none"></div>
+
+            </form>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================
        FOOTER
-  ========================== -->
-    <footer class="site-footer">
+  ========================= -->
+  <footer class="site-footer">
+    <div class="container-xl px-4">
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-4">
 
-        <div class="footer-grid">
-
-            <div class="footer-brand">
-
-                <div class="nav-logo">
-                    <span class="logo-bracket">&lt;</span>
-                    FABRICIO
-                    <span class="logo-accent">/</span>
-                    <span class="logo-bracket">&gt;</span>
-                </div>
-
-                <p>
-                    En busca del conocimiento...
-                </p>
-
-            </div>
-
-            <div class="footer-social">
-
-                <a href="#" class="social-link">
-                    <i class="fa-brands fa-github"></i>
-                </a>
-
-                <a href="#" class="social-link">
-                    <i class="fa-brands fa-instagram"></i>
-                </a>
-
-                <a href="#" class="social-link">
-                    <i class="fa-brands fa-discord"></i>
-                </a>
-
-            </div>
-
+        <div>
+          <div class="nav-logo-text mb-2 d-block">
+            <span class="logo-bracket">&lt;</span>FABRICIO<span class="logo-slash">/</span><span class="logo-bracket">&gt;</span>
+          </div>
+          <p class="footer-tagline">En busca del conocimiento...</p>
         </div>
 
-        <div class="footer-bottom">
-            © 2026 — Fabricio Antonio
+        <div class="d-flex gap-2">
+          <a href="https://github.com/" class="social-btn" target="_blank" title="GitHub">
+            <i class="fa-brands fa-github"></i>
+          </a>
+          <a href="#" class="social-btn" title="Instagram">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <a href="#" class="social-btn" title="Discord">
+            <i class="fa-brands fa-discord"></i>
+          </a>
         </div>
 
-    </footer>
+      </div>
 
-    <!-- JS -->
-    <script src="js/main.js"></script>
+      <div class="footer-copy">
+        © 2026 — Fabricio Antonio &nbsp;·&nbsp; Hecho con <span style="color:var(--accent)">&#9829;</span> y mucho café
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- JS propio -->
+  <script src="js/main.js"></script>
 
 </body>
-
 </html>

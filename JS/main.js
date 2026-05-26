@@ -1,290 +1,327 @@
-// ==========================================
-// PORTFOLIO MAIN JS - FIXED VERSION
-// ==========================================
+/* =============================================
+   PORTFOLIO FABRICIO ANTONIO — main.js
+   Bootstrap 5 Edition
+============================================= */
 
-// ===============================
-// CUSTOM CURSOR
-// ===============================
-const cursorDot = document.querySelector(".cursor-dot");
-const cursorRing = document.querySelector(".cursor-ring");
+/* ─────────────────────────────
+   1. CURSOR PERSONALIZADO
+───────────────────────────── */
+const cursorDot  = document.getElementById('cursorDot');
+const cursorRing = document.getElementById('cursorRing');
 
-window.addEventListener("mousemove", (e) => {
+let mouseX = 0, mouseY = 0;
+let ringX  = 0, ringY  = 0;
 
-  const posX = e.clientX;
-  const posY = e.clientY;
-
-  if(cursorDot){
-    cursorDot.style.left = `${posX}px`;
-    cursorDot.style.top = `${posY}px`;
+window.addEventListener('mousemove', e => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+  if (cursorDot) {
+    cursorDot.style.left = mouseX + 'px';
+    cursorDot.style.top  = mouseY + 'px';
   }
-
-  if(cursorRing){
-    cursorRing.style.left = `${posX}px`;
-    cursorRing.style.top = `${posY}px`;
-  }
-
 });
 
-// Hover effect
-const hoverItems = document.querySelectorAll(
-  "a, button, .tool-icon, .bento-card, .project-card"
-);
-
-hoverItems.forEach((item) => {
-
-  item.addEventListener("mouseenter", () => {
-    if(cursorRing){
-      cursorRing.classList.add("hover");
-    }
-  });
-
-  item.addEventListener("mouseleave", () => {
-    if(cursorRing){
-      cursorRing.classList.remove("hover");
-    }
-  });
-
-});
-
-// ===============================
-// NAVBAR SCROLL
-// ===============================
-const navbar = document.getElementById("navbar");
-
-window.addEventListener("scroll", () => {
-
-  if(window.scrollY > 40){
-    navbar.classList.add("scrolled");
-  } else {
-    navbar.classList.remove("scrolled");
+// Ring sigue al cursor con lag suave
+function animateRing() {
+  ringX += (mouseX - ringX) * 0.12;
+  ringY += (mouseY - ringY) * 0.12;
+  if (cursorRing) {
+    cursorRing.style.left = ringX + 'px';
+    cursorRing.style.top  = ringY + 'px';
   }
-
-});
-
-// ===============================
-// MOBILE MENU
-// ===============================
-const navToggle = document.getElementById("navToggle");
-const mobileMenu = document.getElementById("mobileMenu");
-
-if(navToggle){
-
-  navToggle.addEventListener("click", () => {
-
-    mobileMenu.classList.toggle("open");
-    navToggle.classList.toggle("active");
-
-  });
-
+  requestAnimationFrame(animateRing);
 }
+animateRing();
 
-// Close mobile menu
-document.querySelectorAll(".mobile-link").forEach((link) => {
-
-  link.addEventListener("click", () => {
-
-    mobileMenu.classList.remove("open");
-    navToggle.classList.remove("active");
-
-  });
-
+// Hover effect en elementos interactivos
+document.querySelectorAll(
+  'a, button, .tool-icon-box, .bento-card, .stat-card, .hero-card, .social-btn'
+).forEach(el => {
+  el.addEventListener('mouseenter', () => cursorRing && cursorRing.classList.add('hover'));
+  el.addEventListener('mouseleave', () => cursorRing && cursorRing.classList.remove('hover'));
 });
 
-// ===============================
-// SMOOTH SCROLL
-// ===============================
+
+/* ─────────────────────────────
+   2. SCROLL PROGRESS BAR
+───────────────────────────── */
+const progressBar = document.getElementById('scrollProgress');
+
+window.addEventListener('scroll', () => {
+  const docEl   = document.documentElement;
+  const scrolled = (docEl.scrollTop || document.body.scrollTop);
+  const total    = docEl.scrollHeight - docEl.clientHeight;
+  if (progressBar) progressBar.style.width = ((scrolled / total) * 100) + '%';
+}, { passive: true });
+
+
+/* ─────────────────────────────
+   3. NAVBAR AL HACER SCROLL
+───────────────────────────── */
+const navbar = document.getElementById('navbar');
+
+window.addEventListener('scroll', () => {
+  if (navbar) navbar.classList.toggle('scrolled', window.scrollY > 50);
+}, { passive: true });
+
+
+/* ─────────────────────────────
+   4. LINK ACTIVO EN NAVBAR
+───────────────────────────── */
+const sections  = document.querySelectorAll('section[id]');
+const navLinks  = document.querySelectorAll('.navbar-nav .nav-link');
+
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(sec => {
+    if (window.scrollY >= sec.offsetTop - 200) current = sec.id;
+  });
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+  });
+}, { passive: true });
+
+
+/* ─────────────────────────────
+   5. SMOOTH SCROLL
+───────────────────────────── */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-
-  anchor.addEventListener("click", function(e){
-
+  anchor.addEventListener('click', function (e) {
+    const href = this.getAttribute('href');
+    if (href === '#') return;
     e.preventDefault();
-
-    const target = document.querySelector(
-      this.getAttribute("href")
-    );
-
-    if(target){
-
-      target.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-
+    const target = document.querySelector(href);
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Cierra el menú mobile de Bootstrap
+    const navCollapse = document.getElementById('navMenu');
+    if (navCollapse && navCollapse.classList.contains('show')) {
+      const bsCollapse = bootstrap.Collapse.getInstance(navCollapse);
+      if (bsCollapse) bsCollapse.hide();
     }
-
   });
-
 });
 
-// ===============================
-// ACTIVE NAV LINKS
-// ===============================
-const sections = document.querySelectorAll("section");
-const navLinks = document.querySelectorAll(".nav-link");
 
-window.addEventListener("scroll", () => {
-
-  let current = "";
-
-  sections.forEach((section) => {
-
-    const sectionTop = section.offsetTop - 200;
-
-    if(scrollY >= sectionTop){
-      current = section.getAttribute("id");
+/* ─────────────────────────────
+   6. REVEAL ON SCROLL
+───────────────────────────── */
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      // Dejar de observar después de animar (performance)
+      // revealObserver.unobserve(entry.target);
     }
-
   });
+}, { threshold: 0.12 });
 
-  navLinks.forEach((link) => {
-
-    link.classList.remove("active");
-
-    const href = link.getAttribute("href").replace("#","");
-
-    if(href === current){
-      link.classList.add("active");
-    }
-
-  });
-
-});
-
-// ===============================
-// REVEAL ANIMATION
-// ===============================
-const revealElements = document.querySelectorAll(".reveal");
-
-const revealObserver = new IntersectionObserver((entries) => {
-
-  entries.forEach((entry) => {
-
-    if(entry.isIntersecting){
-
-      entry.target.classList.add("visible");
-
-    }
-
-  });
-
-},{
-  threshold: 0.15
-});
-
-revealElements.forEach((el) => {
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
   revealObserver.observe(el);
 });
 
-// ===============================
-// CERTIFICATES ANIMATION
-// ===============================
-const certElements = document.querySelectorAll(".reveal-cert");
 
-const certObserver = new IntersectionObserver((entries) => {
-
-  entries.forEach((entry) => {
-
-    if(entry.isIntersecting){
-
-      entry.target.classList.add("visible");
-
-    }
-
-  });
-
-},{
-  threshold: 0.2
-});
-
-certElements.forEach((cert) => {
-  certObserver.observe(cert);
-});
-
-// ===============================
-// SKILL BARS ANIMATION
-// ===============================
-const skillBars = document.querySelectorAll(".skill-fill");
-
-const skillObserver = new IntersectionObserver((entries) => {
-
-  entries.forEach((entry) => {
-
-    if(entry.isIntersecting){
-
+/* ─────────────────────────────
+   7. SKILL BARS ANIMADAS
+───────────────────────────── */
+const skillBarObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
       const width = entry.target.dataset.width;
-
-      entry.target.style.width = width + "%";
-
+      entry.target.style.width = width + '%';
+      skillBarObserver.unobserve(entry.target);
     }
-
   });
+}, { threshold: 0.4 });
 
-},{
-  threshold: 0.5
+document.querySelectorAll('.skill-bar-fill').forEach(bar => {
+  skillBarObserver.observe(bar);
 });
 
-skillBars.forEach((bar) => {
-  skillObserver.observe(bar);
-});
 
-// ===============================
-// CARD GLOW EFFECT
-// ===============================
-const cards = document.querySelectorAll(".bento-card");
+/* ─────────────────────────────
+   8. COUNTER ANIMATION (stats)
+───────────────────────────── */
+function animateCounter(el, target, suffix = '') {
+  if (el.dataset.counted) return;
+  el.dataset.counted = '1';
+  let current   = 0;
+  const duration = 1400;
+  const steps    = 60;
+  const increment = target / steps;
+  const interval  = duration / steps;
+  const timer = setInterval(() => {
+    current += increment;
+    if (current >= target) {
+      el.textContent = target + suffix;
+      clearInterval(timer);
+    } else {
+      el.textContent = Math.floor(current) + suffix;
+    }
+  }, interval);
+}
 
-cards.forEach((card) => {
+const statObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const numEl = entry.target.querySelector('.stat-num');
+      if (!numEl || numEl.textContent === '∞') return;
+      const raw    = numEl.textContent.trim();
+      const target = parseInt(raw);
+      const suffix = raw.replace(String(target), '');
+      animateCounter(numEl, target, suffix);
+    }
+  });
+}, { threshold: 0.5 });
 
-  card.addEventListener("mousemove", (e) => {
+document.querySelectorAll('.stat-card').forEach(card => statObserver.observe(card));
 
+
+/* ─────────────────────────────
+   9. BENTO CARD SPOTLIGHT GLOW
+───────────────────────────── */
+document.querySelectorAll('.bento-card, .hero-card, .stat-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
     const rect = card.getBoundingClientRect();
-
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    card.style.setProperty("--x", `${x}px`);
-    card.style.setProperty("--y", `${y}px`);
-
+    card.style.setProperty('--mx', (e.clientX - rect.left) + 'px');
+    card.style.setProperty('--my', (e.clientY - rect.top)  + 'px');
   });
-
 });
 
-// ===============================
-// PARALLAX HERO
-// ===============================
-const heroSection = document.querySelector(".hero-section");
 
-window.addEventListener("scroll", () => {
+/* ─────────────────────────────
+   10. HERO PARALLAX SUTIL
+───────────────────────────── */
+const heroSection = document.querySelector('#home');
 
+window.addEventListener('scroll', () => {
+  if (!heroSection) return;
   const scroll = window.scrollY;
+  const grid   = heroSection.querySelector('.hero-grid');
+  if (grid) grid.style.transform = `translateY(${scroll * 0.15}px)`;
+}, { passive: true });
 
-  if(heroSection){
 
-    heroSection.style.backgroundPositionY =
-      `${scroll * 0.3}px`;
+/* ─────────────────────────────
+   11. FORMULARIO DE CONTACTO
+───────────────────────────── */
+const contactForm   = document.getElementById('contactForm');
+const sendBtn       = document.getElementById('sendBtn');
+const btnText       = document.getElementById('btnText');
+const btnLoading    = document.getElementById('btnLoading');
+const formFeedback  = document.getElementById('formFeedback');
 
+function showFeedback(message, type) {
+  if (!formFeedback) return;
+  formFeedback.textContent  = message;
+  formFeedback.className    = 'form-feedback ' + type;
+  formFeedback.style.display = 'block';
+  setTimeout(() => { formFeedback.style.display = 'none'; }, 5000);
+}
+
+function setLoading(loading) {
+  if (loading) {
+    btnText.style.display    = 'none';
+    btnLoading.style.display = 'inline-flex';
+    sendBtn.disabled = true;
+  } else {
+    btnText.style.display    = 'inline-flex';
+    btnLoading.style.display = 'none';
+    sendBtn.disabled = false;
   }
+}
 
+function validateForm() {
+  const nombre  = document.getElementById('inputNombre');
+  const email   = document.getElementById('inputEmail');
+  const asunto  = document.getElementById('inputAsunto');
+  const mensaje = document.getElementById('inputMensaje');
+
+  if (!nombre.value.trim()) {
+    nombre.focus();
+    showFeedback('⚠ Por favor ingresa tu nombre.', 'error');
+    return false;
+  }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email.value.trim())) {
+    email.focus();
+    showFeedback('⚠ Ingresa un email válido.', 'error');
+    return false;
+  }
+  if (!asunto.value.trim()) {
+    asunto.focus();
+    showFeedback('⚠ Indica el asunto del mensaje.', 'error');
+    return false;
+  }
+  if (mensaje.value.trim().length < 10) {
+    mensaje.focus();
+    showFeedback('⚠ El mensaje debe tener al menos 10 caracteres.', 'error');
+    return false;
+  }
+  return true;
+}
+
+if (contactForm) {
+  contactForm.addEventListener('submit', async e => {
+    e.preventDefault();
+    if (!validateForm()) return;
+
+    setLoading(true);
+
+    /*
+      ─── INTEGRACIÓN REAL ───────────────────────────────
+      Puedes conectar este form con:
+
+      A) Formspree (gratis, sin backend):
+         const res = await fetch('https://formspree.io/f/TU_ID', {
+           method: 'POST',
+           headers: { 'Content-Type': 'application/json' },
+           body: JSON.stringify({
+             nombre:  document.getElementById('inputNombre').value,
+             email:   document.getElementById('inputEmail').value,
+             asunto:  document.getElementById('inputAsunto').value,
+             mensaje: document.getElementById('inputMensaje').value
+           })
+         });
+         if (res.ok) { ... éxito ... }
+
+      B) EmailJS (envío desde el cliente):
+         emailjs.send('SERVICE_ID', 'TEMPLATE_ID', { ... })
+
+      C) Tu propio backend PHP / Node.js
+      ───────────────────────────────────────────────────
+    */
+
+    // SIMULACIÓN: espera 1.5s y muestra éxito
+    await new Promise(resolve => setTimeout(resolve, 1500));
+
+    setLoading(false);
+    showFeedback('✓ ¡Mensaje enviado! Te responderé pronto.', 'success');
+    contactForm.reset();
+  });
+}
+
+
+/* ─────────────────────────────
+   12. ANIMACIÓN INPUT FOCUS
+───────────────────────────── */
+document.querySelectorAll('.form-input-custom').forEach(input => {
+  input.addEventListener('focus', () => {
+    const icon = input.parentElement.querySelector('.input-icon');
+    if (icon) icon.style.color = 'var(--accent)';
+  });
+  input.addEventListener('blur', () => {
+    const icon = input.parentElement.querySelector('.input-icon');
+    if (icon) icon.style.color = 'var(--text-secondary)';
+  });
 });
 
-// ===============================
-// PAGE LOADED
-// ===============================
-window.addEventListener("load", () => {
 
-  document.body.classList.add("loaded");
-
-});
-
-// ===============================
-// CONSOLE MESSAGE
-// ===============================
-console.log(`
-███████╗ █████╗ ██████╗ ██████╗ ██╗ ██████╗██╗ ██████╗ 
-██╔════╝██╔══██╗██╔══██╗██╔══██╗██║██╔════╝██║██╔═══██╗
-█████╗  ███████║██████╔╝██████╔╝██║██║     ██║██║   ██║
-██╔══╝  ██╔══██║██╔══██╗██╔══██╗██║██║     ██║██║   ██║
-██║     ██║  ██║██████╔╝██║  ██║██║╚██████╗██║╚██████╔╝
-╚═╝     ╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝╚═╝ ╚═════╝╚═╝ ╚═════╝ 
-
-Portfolio Loaded Successfully 🚀
-`);
+/* ─────────────────────────────
+   13. CONSOLE SIGNATURE
+───────────────────────────── */
+console.log(
+  '%c⚡ FABRICIO ANTONIO — Portfolio v2.0\n%cBootstrap 5 + Premium Animations\nOpen to Work 🚀',
+  'color:#10b981;font-weight:700;font-size:15px;',
+  'color:#94a3b8;font-size:12px;'
+);
