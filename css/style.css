@@ -137,6 +137,182 @@ img { max-width: 100%; display: block; }
   50%       { opacity: 0.3; }
 }
 
+/****************************************************************
+ Contenedor de la tarjeta Bento adaptada 
+ *************************************************************
+ */
+ 
+.project-preview-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0 !important; /* Permitir que la imagen toque los bordes superiores */
+  background: #111827; /* Fondo oscuro elegante */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.project-preview-card:hover {
+  border-color: rgba(99, 102, 241, 0.4); /* Destape de acento al pasar mouse */
+}
+
+/* Contenedor del Slider */
+.project-slider-container {
+  position: relative;
+  width: 100%;
+  height: 220px; /* Altura ideal para la vista previa */
+  background: #0b0f19;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.slider-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* Imágenes del Slider */
+.slider-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ajusta la captura sin deformar */
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+  z-index: 1;
+}
+
+.slider-img.active {
+  opacity: 1;
+  z-index: 2;
+}
+
+/* Botones de Flechas (< >) */
+.slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0; /* Ocultas por defecto */
+  transition: opacity 0.3s ease, background 0.2s ease;
+}
+
+/* Mostrar flechas al hacer hover en la tarjeta */
+.project-preview-card:hover .slider-arrow {
+  opacity: 1;
+}
+
+.slider-arrow:hover {
+  background: #6366f1; /* Color de acento moderno (Indigo) */
+  border-color: #6366f1;
+}
+
+.prev-btn { left: 12px; }
+.next-btn { right: 12px; }
+
+/* Ajuste de padding interno para la info */
+.project-info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+/*
+******************************************************
+IMAGENES
+*****************************************************
+*/
+/* Asegurar que el contenedor del enlace no rompa el diseño */
+.cert-click-wrapper {
+  display: block;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Envoltura de la imagen */
+.cert-img-wrap {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #1e293b;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s ease;
+}
+
+/* Ajustes de la imagen para que rellene correctamente */
+.cert-img-wrap img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.5s ease, filter 0.3s ease;
+}
+
+/* Capa oscura interactiva que aparece en Hover */
+.cert-hover-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.85); /* Fondo semitransparente oscuro */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  opacity: 0; /* Oculto inicialmente */
+  transition: opacity 0.3s ease;
+  z-index: 3;
+}
+
+.cert-hover-overlay i {
+  color: #6366f1; /* Cambia al color de acento de tu portafolio */
+  font-size: 1.8rem;
+  transform: translateY(10px);
+  transition: transform 0.3s ease;
+}
+
+.cert-hover-overlay span {
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* ---- EFECTOS HOVER ---- */
+.cert-click-wrapper:hover .cert-img-wrap {
+  transform: scale(1.02); /* Eleva suavemente la tarjeta */
+  border-color: rgba(99, 102, 241, 0.5); /* Borde con brillo de acento */
+}
+
+.cert-click-wrapper:hover .cert-hover-overlay {
+  opacity: 1; /* Muestra el texto e ícono */
+}
+
+.cert-click-wrapper:hover .cert-hover-overlay i {
+  transform: translateY(0); /* Pequeña animación de subida del ícono */
+}
+
+.cert-click-wrapper:hover .cert-img-wrap img {
+  transform: scale(1.05); /* Zoom sutil a la imagen de fondo */
+  filter: blur(2px); /* Opcional: difumina ligeramente para enfocar el texto */
+}
+
 /* ── HERO ── */
 #home {
   min-height: 100vh;
