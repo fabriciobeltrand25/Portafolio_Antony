@@ -5,24 +5,34 @@
 
 /* ── VARIABLES ── */
 :root {
-  --bg-primary:      #0a0e1a;
-  --bg-secondary:    #161b26;
-  --bg-card:         #1a2035;
-  --accent:          #10b981;
-  --accent-glow:     rgba(16, 185, 129, 0.25);
-  --accent-dim:      rgba(16, 185, 129, 0.12);
-  --blue-accent:     #3b82f6;
-  --text-primary:    #ffffff;
-  --text-secondary:  #94a3b8;
-  --border-card:     rgba(16, 185, 129, 0.15);
-  --border-hover:    rgba(16, 185, 129, 0.45);
-  --font-display:    'Orbitron', monospace;
-  --font-body:       'Rajdhani', sans-serif;
-  --font-mono:       'JetBrains Mono', monospace;
-  --transition:      0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  --radius:          18px;
-  --radius-sm:       10px;
+--bg-primary:      #0a0e1a;
+--bg-secondary:    rgba(22, 27, 38, 0.75);
+--bg-card:         rgba(26, 32, 53, 0.65);
+
+/* Verde acento y resplandores */
+--accent:          #10b981;
+--accent-glow:     rgba(16, 185, 129, 0.25);
+--accent-dim:      rgba(16, 185, 129, 0.182);
+--blue-accent:     #3b82f6;
+
+/* Textos */
+--text-primary:    #ffffff;
+--text-secondary:  #94a3b8;
+
+/* Bordes verdes bien definidos */
+--border-card:     rgba(16, 185, 129, 0.25);
+--border-hover:    rgba(16, 185, 129, 0.75);
+
+/* Tipografías */
+--font-display:    'Orbitron', monospace;
+--font-body:       'Rajdhani', sans-serif;
+--font-mono:       'JetBrains Mono', monospace;
+
+--transition:      0.4s cubic-bezier(0.16, 1, 0.3, 1);
+--radius:          18px;
+--radius-sm:       10px;
 }
+
 
 /* ── RESET & BASE ── */
 *, *::before, *::after { box-sizing: border-box; }
