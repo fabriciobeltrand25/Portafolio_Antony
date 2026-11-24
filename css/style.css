@@ -3,38 +3,31 @@
    Bootstrap 5 + Custom Premium Styles
 ============================================= */
 
-/* ── VARIABLES ── */
 :root {
---bg-primary:      #0a0e1a;
---bg-secondary:    rgba(22, 27, 38, 0.75);
---bg-card:         rgba(26, 32, 53, 0.65);
+  --bg-primary:      #0a0e1a;
+  --bg-secondary:    rgba(22, 27, 38, 0.75);
+  --bg-card:         rgba(26, 32, 53, 0.65);
 
-/* Verde acento y resplandores */
---accent:          #10b981;
---accent-glow:     rgba(16, 185, 129, 0.25);
---accent-dim:      rgba(16, 185, 129, 0.182);
---blue-accent:     #3b82f6;
+  --accent:          #10b981;
+  --accent-glow:     rgba(16, 185, 129, 0.25);
+  --accent-dim:      rgba(16, 185, 129, 0.182);
+  --blue-accent:     #3b82f6;
 
-/* Textos */
---text-primary:    #ffffff;
---text-secondary:  #94a3b8;
+  --text-primary:    #ffffff;
+  --text-secondary:  #94a3b8;
 
-/* Bordes verdes bien definidos */
---border-card:     rgba(16, 185, 129, 0.25);
---border-hover:    rgba(16, 185, 129, 0.75);
+  --border-card:     rgba(16, 185, 129, 0.25);
+  --border-hover:    rgba(16, 185, 129, 0.75);
 
-/* Tipografías */
---font-display:    'Orbitron', monospace;
---font-body:       'Rajdhani', sans-serif;
---font-mono:       'JetBrains Mono', monospace;
+  --font-display:    'Orbitron', monospace;
+  --font-body:       'Rajdhani', sans-serif;
+  --font-mono:       'JetBrains Mono', monospace;
 
---transition:      0.4s cubic-bezier(0.16, 1, 0.3, 1);
---radius:          18px;
---radius-sm:       10px;
+  --transition:      0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --radius:          18px;
+  --radius-sm:       10px;
 }
 
-
-/* ── RESET & BASE ── */
 *, *::before, *::after { box-sizing: border-box; }
 
 html { scroll-behavior: smooth; }
@@ -47,6 +40,23 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   cursor: none;
+  position: relative;
+}
+
+/* Fondo Matrix detrás de todo sin bloquear clics ni alterar el flujo */
+#codeRainCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.22;
+}
+
+nav, section, footer {
+  position: relative;
+  z-index: 1;
 }
 
 a { color: inherit; text-decoration: none; }
@@ -90,12 +100,13 @@ img { max-width: 100%; display: block; }
 
 /* ── NAVBAR ── */
 #navbar {
-  background: rgba(10, 14, 26, 0.82) !important;
+  background: rgba(10, 14, 26, 0.85) !important;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(16, 185, 129, 0.1);
   transition: box-shadow var(--transition);
   height: 68px;
+  z-index: 1030;
 }
 #navbar.scrolled { box-shadow: 0 4px 40px rgba(16, 185, 129, 0.08); }
 
@@ -147,31 +158,26 @@ img { max-width: 100%; display: block; }
   50%       { opacity: 0.3; }
 }
 
-/****************************************************************
- Contenedor de la tarjeta Bento adaptada 
- *************************************************************
- */
- 
+/* ── TARJETAS DE PROYECTO / SLIDER ── */
 .project-preview-card {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  padding: 0 !important; /* Permitir que la imagen toque los bordes superiores */
-  background: #111827; /* Fondo oscuro elegante */
+  padding: 0 !important;
+  background: #111827;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
   transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
 .project-preview-card:hover {
-  border-color: rgba(99, 102, 241, 0.4); /* Destape de acento al pasar mouse */
+  border-color: rgba(99, 102, 241, 0.4);
 }
 
-/* Contenedor del Slider */
 .project-slider-container {
   position: relative;
   width: 100%;
-  height: 220px; /* Altura ideal para la vista previa */
+  height: 220px;
   background: #0b0f19;
   overflow: hidden;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -183,14 +189,13 @@ img { max-width: 100%; display: block; }
   position: relative;
 }
 
-/* Imágenes del Slider */
 .slider-img {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Ajusta la captura sin deformar */
+  object-fit: cover;
   opacity: 0;
   transition: opacity 0.4s ease-in-out;
   z-index: 1;
@@ -201,7 +206,6 @@ img { max-width: 100%; display: block; }
   z-index: 2;
 }
 
-/* Botones de Flechas (< >) */
 .slider-arrow {
   position: absolute;
   top: 50%;
@@ -217,81 +221,68 @@ img { max-width: 100%; display: block; }
   justify-content: center;
   cursor: pointer;
   z-index: 10;
-  opacity: 0; /* Ocultas por defecto */
+  opacity: 0;
   transition: opacity 0.3s ease, background 0.2s ease;
 }
 
-/* Mostrar flechas al hacer hover en la tarjeta */
 .project-preview-card:hover .slider-arrow {
   opacity: 1;
 }
 
 .slider-arrow:hover {
-  background: #6366f1; /* Color de acento moderno (Indigo) */
+  background: #6366f1;
   border-color: #6366f1;
 }
 
 .prev-btn { left: 12px; }
 .next-btn { right: 12px; }
 
-/* Ajuste de padding interno para la info */
 .project-info {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 }
 
-/*
-******************************************************
-IMAGENES
-*****************************************************
-*/
-/* Asegurar que el contenedor del enlace no rompa el diseño */
+/* ── CERTIFICADOS ── */
 .cert-click-wrapper {
   display: block;
   text-decoration: none;
   cursor: pointer;
 }
 
-/* Envoltura de la imagen */
 .cert-img-wrap {
   position: relative;
   overflow: hidden;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-card);
   background: #1e293b;
-  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Ajustes de la imagen para que rellene correctamente */
 .cert-img-wrap img {
   width: 100%;
-  height: auto;
+  aspect-ratio: 4 / 3;
   display: block;
   object-fit: cover;
   transition: transform 0.5s ease, filter 0.3s ease;
 }
 
-/* Capa oscura interactiva que aparece en Hover */
 .cert-hover-overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(15, 23, 42, 0.85); /* Fondo semitransparente oscuro */
+  inset: 0;
+  background: rgba(15, 23, 42, 0.85);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  opacity: 0; /* Oculto inicialmente */
+  opacity: 0;
   transition: opacity 0.3s ease;
   z-index: 3;
 }
 
 .cert-hover-overlay i {
-  color: #6366f1; /* Cambia al color de acento de tu portafolio */
+  color: var(--accent);
   font-size: 1.8rem;
   transform: translateY(10px);
   transition: transform 0.3s ease;
@@ -304,23 +295,23 @@ IMAGENES
   letter-spacing: 0.5px;
 }
 
-/* ---- EFECTOS HOVER ---- */
 .cert-click-wrapper:hover .cert-img-wrap {
-  transform: scale(1.02); /* Eleva suavemente la tarjeta */
-  border-color: rgba(99, 102, 241, 0.5); /* Borde con brillo de acento */
+  transform: scale(1.02);
+  border-color: var(--accent);
+  box-shadow: 0 0 40px var(--accent-glow);
 }
 
 .cert-click-wrapper:hover .cert-hover-overlay {
-  opacity: 1; /* Muestra el texto e ícono */
+  opacity: 1;
 }
 
 .cert-click-wrapper:hover .cert-hover-overlay i {
-  transform: translateY(0); /* Pequeña animación de subida del ícono */
+  transform: translateY(0);
 }
 
 .cert-click-wrapper:hover .cert-img-wrap img {
-  transform: scale(1.05); /* Zoom sutil a la imagen de fondo */
-  filter: blur(2px); /* Opcional: difumina ligeramente para enfocar el texto */
+  transform: scale(1.05);
+  filter: blur(2px);
 }
 
 /* ── HERO ── */
@@ -353,7 +344,6 @@ IMAGENES
   filter: blur(100px); pointer-events: none;
 }
 
-/* ── HERO CARD ── */
 .hero-card {
   background: rgba(22, 27, 38, 0.72);
   border: 1px solid var(--border-card);
@@ -399,7 +389,6 @@ IMAGENES
   line-height: 1.75; margin-bottom: 30px;
 }
 
-/* ── BUTTONS ── */
 .btn-accent {
   background: var(--accent); color: #0a0e1a;
   font-family: var(--font-body); font-weight: 700;
@@ -458,12 +447,6 @@ IMAGENES
   display: flex; align-items: center; justify-content: center;
 }
 .hex-img { width: 100%; height: 100%; object-fit: cover; }
-.hex-placeholder {
-  display: flex; flex-direction: column;
-  align-items: center; gap: 8px; color: var(--text-secondary);
-}
-.hex-placeholder i    { font-size: 3.2rem; color: var(--accent); }
-.hex-placeholder span { font-size: 0.7rem; font-family: var(--font-mono); }
 .hex-glow {
   position: absolute; inset: -30px; border-radius: 50%;
   background: var(--accent-glow); filter: blur(40px);
@@ -602,8 +585,8 @@ IMAGENES
 .tool-icon-box:hover { border-color: var(--accent); background: rgba(16, 185, 129, 0.07); transform: translateY(-4px); }
 .tool-icon-box:hover i { color: var(--accent); }
 
-.roblox-card       { position: relative; overflow: hidden; }
-.roblox-glow-orb   {
+.roblox-card, .learning-card { position: relative; overflow: hidden; }
+.roblox-glow-orb, .learning-glow-orb {
   position: absolute; top: -40px; right: -40px;
   width: 200px; height: 200px; border-radius: 50%;
   background: var(--accent-glow); filter: blur(60px); pointer-events: none;
@@ -616,7 +599,7 @@ IMAGENES
   color: var(--blue-accent);
 }
 
-/* ── CERTIFICATES ── */
+/* ── TIMELINE CERTIFICADOS ── */
 .certs-timeline {
   max-width: 860px; position: relative;
 }
@@ -630,32 +613,6 @@ IMAGENES
   width: 12px; height: 12px; border-radius: 50%;
   background: var(--accent); transform: translate(-50%, -50%);
   box-shadow: 0 0 20px var(--accent-glow); z-index: 1;
-}
-.cert-img-wrap {
-  position: relative; border-radius: 16px; overflow: hidden;
-  border: 1px solid var(--border-card);
-  transition: all var(--transition);
-}
-.cert-img-wrap:hover {
-  border-color: var(--accent);
-  box-shadow: 0 0 40px var(--accent-glow);
-}
-.cert-img-wrap img {
-  width: 100%; display: block;
-  aspect-ratio: 4/3; object-fit: cover;
-}
-.cert-img-placeholder-box {
-  width: 100%; aspect-ratio: 4/3;
-  background: var(--bg-card);
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  gap: 10px; color: var(--text-secondary);
-  font-size: 0.82rem; font-family: var(--font-mono);
-}
-.cert-img-placeholder-box i { font-size: 2.8rem; color: var(--accent); }
-.cert-num {
-  font-family: var(--font-display); font-size: 3.5rem;
-  font-weight: 900; color: rgba(16, 185, 129, 0.12); line-height: 1;
 }
 .cert-title {
   font-family: var(--font-display); font-size: 1rem;
@@ -675,7 +632,7 @@ IMAGENES
   font-family: var(--font-mono); font-size: 0.62rem;
   letter-spacing: 2px; padding: 4px 11px;
   background: var(--accent); color: #0a0e1a;
-  border-radius: 100px; font-weight: 700;
+  border-radius: 100px; font-weight: 700; z-index: 11;
 }
 .project-icon {
   font-size: 2.2rem; color: var(--blue-accent);
@@ -725,7 +682,6 @@ IMAGENES
   pointer-events: none;
 }
 
-/* Contact info cards */
 .contact-info-card { padding: 20px 24px !important; }
 .contact-icon-wrap {
   width: 48px; height: 48px; border-radius: 12px;
@@ -752,7 +708,6 @@ IMAGENES
 }
 .contact-value:hover { color: var(--accent); }
 
-/* Contact form */
 .contact-form-card { padding: 36px !important; }
 
 .form-label-custom {
@@ -760,9 +715,7 @@ IMAGENES
   color: var(--text-secondary); letter-spacing: 1px;
   text-transform: uppercase; display: block; margin-bottom: 8px;
 }
-.input-wrap {
-  position: relative;
-}
+.input-wrap { position: relative; }
 .input-icon {
   position: absolute; left: 14px; top: 50%;
   transform: translateY(-50%);
@@ -791,7 +744,6 @@ IMAGENES
 .form-input-custom:focus + .input-icon,
 .input-wrap:focus-within .input-icon { color: var(--accent); }
 
-/* Form feedback */
 .form-feedback {
   padding: 12px 16px; border-radius: var(--radius-sm);
   font-family: var(--font-mono); font-size: 0.82rem;
@@ -836,27 +788,28 @@ IMAGENES
   border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* ── REVEAL ANIMATIONS ── */
+/* ── REVEAL ANIMATIONS (A PRUEBA DE SCROLL RÁPIDO Y GITHUB PAGES) ── */
 .reveal {
-  opacity: 0; transform: translateY(50px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0; transform: translateY(32px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.reveal.delay-1 { transition-delay: 0.1s; }
-.reveal.delay-2 { transition-delay: 0.2s; }
-.reveal.delay-3 { transition-delay: 0.3s; }
-.reveal.delay-4 { transition-delay: 0.4s; }
+.reveal.delay-1 { transition-delay: 0.08s; }
+.reveal.delay-2 { transition-delay: 0.16s; }
+.reveal.delay-3 { transition-delay: 0.24s; }
+.reveal.delay-4 { transition-delay: 0.32s; }
+.reveal.delay-5 { transition-delay: 0.4s; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
 .reveal-left {
-  opacity: 0; transform: translateX(-44px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0; transform: translateX(-32px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .reveal-right {
-  opacity: 0; transform: translateX(44px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0; transform: translateX(32px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .reveal-left.visible,
 .reveal-right.visible { opacity: 1; transform: translateX(0); }

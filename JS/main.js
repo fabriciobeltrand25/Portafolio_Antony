@@ -3,9 +3,6 @@
    Bootstrap 5 Edition
 ============================================= */
 
-/* ─────────────────────────────
-   1. CURSOR PERSONALIZADO
-───────────────────────────── */
 const cursorDot  = document.getElementById('cursorDot');
 const cursorRing = document.getElementById('cursorRing');
 
@@ -21,7 +18,6 @@ window.addEventListener('mousemove', e => {
   }
 });
 
-// Ring sigue al cursor con lag suave
 function animateRing() {
   ringX += (mouseX - ringX) * 0.12;
   ringY += (mouseY - ringY) * 0.12;
@@ -33,48 +29,40 @@ function animateRing() {
 }
 animateRing();
 
-// Hover effect en elementos interactivos
 document.querySelectorAll(
-  'a, button, .tool-icon-box, .bento-card, .stat-card, .hero-card, .social-btn'
+  'a, button, .tool-icon-box, .bento-card, .stat-card, .hero-card, .social-btn, .cert-click-wrapper'
 ).forEach(el => {
   el.addEventListener('mouseenter', () => cursorRing && cursorRing.classList.add('hover'));
   el.addEventListener('mouseleave', () => cursorRing && cursorRing.classList.remove('hover'));
 });
 
-
-/* ─────────────────────────────
-   2. SCROLL PROGRESS BAR
-───────────────────────────── */
+/* ── SCROLL PROGRESS BAR ── */
 const progressBar = document.getElementById('scrollProgress');
 
 window.addEventListener('scroll', () => {
-  const docEl   = document.documentElement;
-  const scrolled = (docEl.scrollTop || document.body.scrollTop);
+  const docEl    = document.documentElement;
+  const scrolled = docEl.scrollTop || document.body.scrollTop;
   const total    = docEl.scrollHeight - docEl.clientHeight;
-  if (progressBar) progressBar.style.width = ((scrolled / total) * 100) + '%';
+  if (progressBar && total > 0) {
+    progressBar.style.width = ((scrolled / total) * 100) + '%';
+  }
 }, { passive: true });
 
-
-/* ─────────────────────────────
-   3. NAVBAR AL HACER SCROLL
-───────────────────────────── */
+/* ── NAVBAR AL HACER SCROLL ── */
 const navbar = document.getElementById('navbar');
 
 window.addEventListener('scroll', () => {
   if (navbar) navbar.classList.toggle('scrolled', window.scrollY > 50);
 }, { passive: true });
 
-
-/* ─────────────────────────────
-   4. LINK ACTIVO EN NAVBAR
-───────────────────────────── */
-const sections  = document.querySelectorAll('section[id]');
-const navLinks  = document.querySelectorAll('.navbar-nav .nav-link');
+/* ── LINK ACTIVO EN NAVBAR ── */
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
 
 window.addEventListener('scroll', () => {
   let current = '';
   sections.forEach(sec => {
-    if (window.scrollY >= sec.offsetTop - 200) current = sec.id;
+    if (window.scrollY >= sec.offsetTop - 220) current = sec.id;
   });
   navLinks.forEach(link => {
     link.classList.remove('active');
@@ -82,10 +70,7 @@ window.addEventListener('scroll', () => {
   });
 }, { passive: true });
 
-
-/* ─────────────────────────────
-   5. SMOOTH SCROLL
-───────────────────────────── */
+/* ── SMOOTH SCROLL ── */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     const href = this.getAttribute('href');
@@ -93,7 +78,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     e.preventDefault();
     const target = document.querySelector(href);
     if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    // Cierra el menú mobile de Bootstrap
     const navCollapse = document.getElementById('navMenu');
     if (navCollapse && navCollapse.classList.contains('show')) {
       const bsCollapse = bootstrap.Collapse.getInstance(navCollapse);
@@ -102,28 +86,39 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
+/* ── REVEAL ON SCROLL (OBSERVER + RESPALDO POR POSICIÓN) ── */
+const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
 
-/* ─────────────────────────────
-   6. REVEAL ON SCROLL
-───────────────────────────── */
-const revealObserver = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      // Dejar de observar después de animar (performance)
-      // revealObserver.unobserve(entry.target);
+function checkRevealsByPosition() {
+  const triggerBottom = window.innerHeight * 0.96;
+  revealElements.forEach(el => {
+    if (el.classList.contains('visible')) return;
+    const rect = el.getBoundingClientRect();
+    if (rect.top <= triggerBottom) {
+      el.classList.add('visible');
     }
   });
-}, { threshold: 0.12 });
+}
 
-document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
-  revealObserver.observe(el);
-});
+if ('IntersectionObserver' in window) {
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.01, rootMargin: '0px 0px -20px 0px' });
 
+  revealElements.forEach(el => revealObserver.observe(el));
+}
 
-/* ─────────────────────────────
-   7. SKILL BARS ANIMADAS
-───────────────────────────── */
+window.addEventListener('scroll', checkRevealsByPosition, { passive: true });
+window.addEventListener('resize', checkRevealsByPosition, { passive: true });
+document.addEventListener('DOMContentLoaded', checkRevealsByPosition);
+setTimeout(checkRevealsByPosition, 250);
+
+/* ── SKILL BARS ANIMADAS ── */
 const skillBarObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -132,22 +127,19 @@ const skillBarObserver = new IntersectionObserver(entries => {
       skillBarObserver.unobserve(entry.target);
     }
   });
-}, { threshold: 0.4 });
+}, { threshold: 0.2 });
 
 document.querySelectorAll('.skill-bar-fill').forEach(bar => {
   skillBarObserver.observe(bar);
 });
 
-
-/* ─────────────────────────────
-   8. COUNTER ANIMATION (stats)
-───────────────────────────── */
+/* ── COUNTER ANIMATION (STATS) ── */
 function animateCounter(el, target, suffix = '') {
   if (el.dataset.counted) return;
   el.dataset.counted = '1';
-  let current   = 0;
-  const duration = 1400;
-  const steps    = 60;
+  let current     = 0;
+  const duration  = 1400;
+  const steps     = 60;
   const increment = target / steps;
   const interval  = duration / steps;
   const timer = setInterval(() => {
@@ -167,19 +159,16 @@ const statObserver = new IntersectionObserver(entries => {
       const numEl = entry.target.querySelector('.stat-num');
       if (!numEl || numEl.textContent === '∞') return;
       const raw    = numEl.textContent.trim();
-      const target = parseInt(raw);
+      const target = parseInt(raw, 10);
       const suffix = raw.replace(String(target), '');
-      animateCounter(numEl, target, suffix);
+      if (!Number.isNaN(target)) animateCounter(numEl, target, suffix);
     }
   });
-}, { threshold: 0.5 });
+}, { threshold: 0.3 });
 
 document.querySelectorAll('.stat-card').forEach(card => statObserver.observe(card));
 
-
-/* ─────────────────────────────
-   9. BENTO CARD SPOTLIGHT GLOW
-───────────────────────────── */
+/* ── BENTO CARD SPOTLIGHT GLOW ── */
 document.querySelectorAll('.bento-card, .hero-card, .stat-card').forEach(card => {
   card.addEventListener('mousemove', e => {
     const rect = card.getBoundingClientRect();
@@ -188,10 +177,7 @@ document.querySelectorAll('.bento-card, .hero-card, .stat-card').forEach(card =>
   });
 });
 
-
-/* ─────────────────────────────
-   10. HERO PARALLAX SUTIL
-───────────────────────────── */
+/* ── HERO PARALLAX SUTIL ── */
 const heroSection = document.querySelector('#home');
 
 window.addEventListener('scroll', () => {
@@ -201,25 +187,23 @@ window.addEventListener('scroll', () => {
   if (grid) grid.style.transform = `translateY(${scroll * 0.15}px)`;
 }, { passive: true });
 
-
-/* ─────────────────────────────
-   11. FORMULARIO DE CONTACTO
-───────────────────────────── */
-const contactForm   = document.getElementById('contactForm');
-const sendBtn       = document.getElementById('sendBtn');
-const btnText       = document.getElementById('btnText');
-const btnLoading    = document.getElementById('btnLoading');
-const formFeedback  = document.getElementById('formFeedback');
+/* ── FORMULARIO DE CONTACTO ── */
+const contactForm  = document.getElementById('contactForm');
+const sendBtn      = document.getElementById('sendBtn');
+const btnText      = document.getElementById('btnText');
+const btnLoading   = document.getElementById('btnLoading');
+const formFeedback = document.getElementById('formFeedback');
 
 function showFeedback(message, type) {
   if (!formFeedback) return;
-  formFeedback.textContent  = message;
-  formFeedback.className    = 'form-feedback ' + type;
+  formFeedback.textContent   = message;
+  formFeedback.className     = 'form-feedback ' + type;
   formFeedback.style.display = 'block';
   setTimeout(() => { formFeedback.style.display = 'none'; }, 5000);
 }
 
 function setLoading(loading) {
+  if (!btnText || !btnLoading || !sendBtn) return;
   if (loading) {
     btnText.style.display    = 'none';
     btnLoading.style.display = 'inline-flex';
@@ -237,24 +221,24 @@ function validateForm() {
   const asunto  = document.getElementById('inputAsunto');
   const mensaje = document.getElementById('inputMensaje');
 
-  if (!nombre.value.trim()) {
-    nombre.focus();
+  if (!nombre || !nombre.value.trim()) {
+    nombre && nombre.focus();
     showFeedback('⚠ Por favor ingresa tu nombre.', 'error');
     return false;
   }
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email.value.trim())) {
-    email.focus();
+  if (!email || !emailRegex.test(email.value.trim())) {
+    email && email.focus();
     showFeedback('⚠ Ingresa un email válido.', 'error');
     return false;
   }
-  if (!asunto.value.trim()) {
-    asunto.focus();
+  if (!asunto || !asunto.value.trim()) {
+    asunto && asunto.focus();
     showFeedback('⚠ Indica el asunto del mensaje.', 'error');
     return false;
   }
-  if (mensaje.value.trim().length < 10) {
-    mensaje.focus();
+  if (!mensaje || mensaje.value.trim().length < 10) {
+    mensaje && mensaje.focus();
     showFeedback('⚠ El mensaje debe tener al menos 10 caracteres.', 'error');
     return false;
   }
@@ -267,44 +251,14 @@ if (contactForm) {
     if (!validateForm()) return;
 
     setLoading(true);
-
-    /*
-      ─── INTEGRACIÓN REAL ───────────────────────────────
-      Puedes conectar este form con:
-
-      A) Formspree (gratis, sin backend):
-         const res = await fetch('https://formspree.io/f/TU_ID', {
-           method: 'POST',
-           headers: { 'Content-Type': 'application/json' },
-           body: JSON.stringify({
-             nombre:  document.getElementById('inputNombre').value,
-             email:   document.getElementById('inputEmail').value,
-             asunto:  document.getElementById('inputAsunto').value,
-             mensaje: document.getElementById('inputMensaje').value
-           })
-         });
-         if (res.ok) { ... éxito ... }
-
-      B) EmailJS (envío desde el cliente):
-         emailjs.send('SERVICE_ID', 'TEMPLATE_ID', { ... })
-
-      C) Tu propio backend PHP / Node.js
-      ───────────────────────────────────────────────────
-    */
-
-    // SIMULACIÓN: espera 1.5s y muestra éxito
     await new Promise(resolve => setTimeout(resolve, 1500));
-
     setLoading(false);
     showFeedback('✓ ¡Mensaje enviado! Te responderé pronto.', 'success');
     contactForm.reset();
   });
 }
 
-
-/* ─────────────────────────────
-   12. ANIMACIÓN INPUT FOCUS
-───────────────────────────── */
+/* ── ANIMACIÓN INPUT FOCUS ── */
 document.querySelectorAll('.form-input-custom').forEach(input => {
   input.addEventListener('focus', () => {
     const icon = input.parentElement.querySelector('.input-icon');
@@ -316,10 +270,6 @@ document.querySelectorAll('.form-input-custom').forEach(input => {
   });
 });
 
-
-/* ─────────────────────────────
-   13. CONSOLE SIGNATURE
-───────────────────────────── */
 console.log(
   '%c⚡ FABRICIO ANTONIO — Portfolio v2.0\n%cBootstrap 5 + Premium Animations\nOpen to Work 🚀',
   'color:#10b981;font-weight:700;font-size:15px;',
